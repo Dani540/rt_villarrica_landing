@@ -1,0 +1,48 @@
+---
+import { Icon } from 'astro-icon/components'
+---
+
+  <div class="container">
+    <h1>Contáctanos!</h1>
+    <a href="https://www.instagram.com/mang_teamv" aria-label="Perfil de Instagram">
+      <p>Envianos un mensaje</p>
+    </a>
+    <div class="icon-wrapper">
+      <a href="https://www.instagram.com/mang_teamv" aria-label="Perfil de Instagram">
+        <Icon name="insta" id="insta" />
+      </a>
+    </div>
+  </div>
+
+<style>
+    .container {
+        padding: 1rem;
+        width: 100%;
+        height: auto;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .icon-wrapper{
+
+    }
+
+    a{
+      text-decoration: none;
+      color: black;
+    }
+
+    #insta{
+        width: 50px;
+        height: 50px;
+      cursor: pointer;
+    }
+
+    #insta:hover{
+      scale: 1.1;
+    }
+    
+</style>
