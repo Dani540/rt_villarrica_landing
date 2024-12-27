@@ -1,0 +1,63 @@
+---
+interface Props{
+    path : string;
+}
+
+const props = Astro.props;
+---
+
+<div class="cover">
+    <img src={props.path} alt="Cover Image" />
+    <section id="info">
+        <h1>RT Villarrica</h1>
+        <h3>11 y 12 de Febrero</h3>
+    </section>
+</div>
+
+<style>
+
+    #info{
+        position: absolute;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        width: 50%;
+        height: 90%;
+
+        color: white;
+
+        h1{
+            font-size: 50px;
+        }
+
+        h3{
+            font-size: 30px;
+        }
+
+        h1,h3{
+            text-shadow:
+                    -2px -2px 0 #000, /* Sombra superior izquierda */
+                    2px -2px 0 #000, /* Sombra superior derecha */
+                    -2px 2px 0 #000, /* Sombra inferior izquierda */
+                    2px 2px 0 #000;
+            letter-spacing: 4px;
+        }
+    }
+
+    .cover {
+        border-radius: 0.5rem;
+        overflow: hidden;
+        position: relative;
+        height: 600px;
+    }
+
+    .cover img {
+        width: 100%;
+        max-height: 600px;
+        object-fit: cover;
+        position: absolute;
+    }
+</style>
