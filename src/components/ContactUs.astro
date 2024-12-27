@@ -2,17 +2,40 @@
 import { Icon } from 'astro-icon/components'
 ---
 
-  <div class="container">
+  <div class="container" >
     <h1>Contáctanos!</h1>
-    <a href="https://www.instagram.com/mang_teamv" aria-label="Perfil de Instagram">
-      <p>Envianos un mensaje</p>
-    </a>
     <div class="icon-wrapper">
-      <a href="https://www.instagram.com/mang_teamv" aria-label="Perfil de Instagram">
-        <Icon name="insta" id="insta" />
-      </a>
+      <p>Envianos un mensaje</p>
+      <Icon name="insta" id="insta" />
     </div>
   </div>
+
+<script>
+  const wrapper = document.querySelector("div.icon-wrapper");
+
+  if (wrapper===null) {
+    console.log('wrapper is null');
+  }else{
+
+    const username = 'mang_teamv';
+    const appLink = `instagram://user?username=${username}`;
+    const webLink = `https://instagram.com/${username}`;
+
+    const open = (isMobile:boolean) => {
+      if (isMobile) {
+        window.location.href = appLink;
+      } else {
+        window.open(webLink,"_blank");
+      }
+    }
+
+    wrapper.addEventListener("click", () => {
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      open(isMobile);
+    });
+  }
+
+</script>
 
 <style>
     .container {
@@ -27,12 +50,13 @@ import { Icon } from 'astro-icon/components'
     }
 
     .icon-wrapper{
-
-    }
-
-    a{
       text-decoration: none;
       color: black;
+      cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     #insta{
