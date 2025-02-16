@@ -2,25 +2,16 @@
 import Layout from '../layouts/Layout.astro';
 import Cover from "../components/Cover.astro";
 import Main from "../components/Main.astro";
-import Card from "../components/Card.astro";
+import CardWrapper from '../components/vue/CardWrapper.vue';
+import cards from '../data/cards.json';
 ---
 
 <Layout>
-    <Cover path="cover.png" />
+    <Cover path="cover.jpg" />
     <Main>
-        <div class="card-container">
-            <Card title="Sobre el Evento" description="SEEEEEEEEXXXXXXXXXXXXXXXXX" />
-            <Card title="Localización" description="FOKIN SEEEEEEEEXXXXXXXXXXXXXXXXX" />
-            <Card title="Quienes Somos" description="Quienes realmente somos?" />
-        </div>
+        <CardWrapper client:idle cards={cards} />
     </Main>
 </Layout>
 
 <style>
-    .card-container {
-        display: flex;
-        gap: 5rem;
-        flex-wrap: wrap;
-        justify-content: space-around;
-    }
 </style>
