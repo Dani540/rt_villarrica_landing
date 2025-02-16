@@ -1,0 +1,17 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Cover from "../components/Cover.astro";
+import Main from "../components/Main.astro";
+import CardWrapper from '../components/vue/CardWrapper.vue';
+import cards from '../data/cards.json';
+---
+
+<Layout>
+    <Cover path="cover.jpg" />
+    <Main>
+        <CardWrapper client:idle cards={cards} />
+    </Main>
+</Layout>
+
+<style>
+</style>
