@@ -3,7 +3,8 @@ import FormCheckbox from './FormCheckbox.vue';
 import { defineProps } from 'vue';
 
 const props = defineProps({
-  formData: { type: Object, required: true }
+  formData: { type: Object, required: true },
+  disabled: { type: Boolean, default: false }
 });
 </script>
 
@@ -11,11 +12,11 @@ const props = defineProps({
   <div class="competencias-group">
     <label>Competencias</label>
     <div class="checkbox-group">
-      <FormCheckbox id="free" label="Freestyle & Best Trick" v-model="formData.free" />
-      <FormCheckbox id="speed" label="Speed" v-model="formData.speed" />
+      <FormCheckbox id="free" label="Freestyle & Best Trick" v-model="formData.free" :disabled="disabled"/>
+      <FormCheckbox id="speed" label="Speed" v-model="formData.speed" :disabled="disabled"/>
       <div class="select-group">
         <label for="sex">Tipo de compentencias:</label>
-        <select id="sex" v-model="formData.sex">
+        <select id="sex" v-model="formData.sex" required :disabled="disabled">
           <option disabled value="">Selecciona una opción</option>
           <option value="femenino">Femenino</option>
           <option value="masculino">Masculino</option>
