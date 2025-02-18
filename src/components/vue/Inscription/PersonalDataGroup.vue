@@ -8,9 +8,10 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="personal-data-group">
-    <FormInput id="nombre" label="Nombre" v-model="formData.nombre" required />
-    <FormInput id="email" label="Correo electrónico" type="email" v-model="formData.email" required />
+  <div class="personal-data-group" v-if="props.formData.asisto">
+    <FormInput id="nombre" label="Nombre" v-model="props.formData.name" required />
+    <FormInput id="email" label="Correo electrónico" type="email" v-model="props.formData.email" required />
+    <FormInput id="contact" label="Contacto de Emergencia" placeholder="+56" v-model="props.formData.contact" type="tel" required/>
   </div>
 </template>
 
