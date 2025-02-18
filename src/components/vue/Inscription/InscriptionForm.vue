@@ -1,10 +1,16 @@
 <script setup lang="ts">
-import { useInscriptionForm } from '@/composables/useInscriptionForm';
 import PersonalDataGroup from './PersonalDataGroup.vue';
 import CompetenciasGroup from './CompetenciasGroup.vue';
 import PayPalButton from './PayPalButton.vue';
+import FormCheckbox from "@/components/vue/Inscription/FormCheckbox.vue";
+import { useRegistration } from '@/composables/useRegistrations';
+import { onMounted } from "vue";
 
-const { formData, handleSubmit } = useInscriptionForm();
+const { formData, resetForm, handleSubmit } = useRegistration();
+
+onMounted(() => {
+  resetForm();
+});
 </script>
 
 <template>
@@ -14,14 +20,38 @@ const { formData, handleSubmit } = useInscriptionForm();
     </div>
     <div class="card-content">
       <form @submit.prevent="handleSubmit" class="form">
+        <div class="form-group-container">
+          <FormCheckbox
+              v-model="formData.asisto"
+              :label="'Asisto al evento'"
+              id="asisto"
+          />
+        </div>
+
+        <div class="form-group-container" v-if="formData.asisto">
+          <FormCheckbox
+              v-model="formData.compito"
+              :label="'Compito en el evento'"
+              id="compito"
+          />
+        </div>
+
         <!-- Grupo de Datos Personales -->
         <div class="form-group-container">
           <PersonalDataGroup :formData="formData" />
         </div>
 
         <!-- Grupo de Competencias -->
-        <div class="form-group-container">
+        <div class="form-group-container" v-if="formData.compito">
           <CompetenciasGroup :formData="formData" />
+        </div>
+
+        <div class="form-group-container">
+          <FormCheckbox
+              v-model="formData.conditions"
+              :label="'Acepta condiciones del evento y responsabilidad personal de cuidado. La organizacion no se hará responsable de las lesiones que se puedan producir (Sin embargo, habrá ambulancia para transporte urgente).'"
+              id="conditions"
+          />
         </div>
 
         <!-- Botón de Envío -->
