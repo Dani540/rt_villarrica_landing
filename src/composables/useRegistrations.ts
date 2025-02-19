@@ -1,6 +1,11 @@
 import { reactive } from 'vue';
 import type { Inscription, Assists } from '@/types/FormReg';
 
+function getError(error: any) {
+    console.log(error)
+    return error.status === 400 ? 'ya existe una inscripción con este email.' : error.error;
+}
+
 export function useRegistration() {
 
     const formData = reactive({
@@ -45,12 +50,23 @@ export function useRegistration() {
             return;
         }
 
+        if (!formData.contact.trim()) {
+            alert('Debe ingresar un contacto de emergencia.');
+            return;
+        }
+
+        if(formData.contact.length < 12){
+            alert('El número de contacto es inválido.');
+            return;
+        }
+
         // Caso 1: Solo "Asisto" (no compito)
         if (formData.asisto && !formData.compito) {
             // Armar objeto de asistencia
             const assistData: Assists = {
                 name: formData.name,
                 email: formData.email,
+                contact: formData.contact,
                 conditions: formData.conditions
             };
             const assistRes = await fetch('/api/assists', {
@@ -60,7 +76,7 @@ export function useRegistration() {
             });
             const assistResult = await assistRes.json();
             if (!assistRes.ok) {
-                alert('Error al registrar asistencia: ' + assistResult.error);
+                alert('Error al registrar asistencia: ' + getError(assistRes));
             } else {
                 alert('Asistencia registrada correctamente.');
                 resetForm();
@@ -72,10 +88,7 @@ export function useRegistration() {
         // Caso 2: "Asisto" y "Compito" marcados
         if (formData.asisto && formData.compito) {
             // Validar campos adicionales
-            if (!formData.contact.trim()) {
-                alert('Debe ingresar un contacto de emergencia.');
-                return;
-            }
+
             if (!formData.sex) {
                 alert('Debe seleccionar el tipo de competencia.');
                 return;
@@ -89,6 +102,7 @@ export function useRegistration() {
             const assistData: Assists = {
                 name: formData.name,
                 email: formData.email,
+                contact: formData.contact,
                 conditions: formData.conditions
             };
             const assistRes = await fetch('/api/assists', {
@@ -109,7 +123,6 @@ export function useRegistration() {
             }
 
             const inscriptionData: Inscription = {
-                contact: formData.contact,
                 free: formData.free,
                 speed: formData.speed,
                 sex: formData.sex,
@@ -123,7 +136,7 @@ export function useRegistration() {
             });
             const inscriptionResult = await inscriptionRes.json();
             if (!inscriptionRes.ok) {
-                alert('Error al registrar inscripción: ' + inscriptionResult.error);
+                alert('Error al registrar inscripción: ' + getError(inscriptionRes));
             } else {
                 alert('Inscripción registrada correctamente.');
                 resetForm();

@@ -15,7 +15,6 @@ function missingID() : Response{
 
 const updateStrategy: Record<keyof Omit<Inscription, "id">, (value: any) => any> = {
     assist_id: (v) => Number(v),
-    contact: (v) => v,
     free: (v) => Boolean(v),
     speed: (v) => Boolean(v),
     sex: (v) => v
@@ -54,7 +53,6 @@ export const POST: APIRoute = async ({ request }) => {
 
     const inscription: Inscription = {
         assist_id: body.assist_id,
-        contact: body.contact,
         free: body.free,
         speed: body.speed,
         sex: body.sex

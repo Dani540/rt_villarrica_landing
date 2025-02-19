@@ -43,6 +43,7 @@ export const POST: APIRoute = async ({ request }) => {
     const assist: Assists = {
         name: body.name,
         email: body.email,
+        contact: body.contact,
         conditions: body.conditions,
     };
 
